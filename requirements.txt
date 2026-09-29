@@ -1,0 +1,5 @@
+google-genai
+pypdf
+pytesseract
+pillow
+python-dotenv
