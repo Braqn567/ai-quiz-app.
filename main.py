@@ -1,18 +1,19 @@
-# Внасяме функциите, които написахме в text_extractor.py
-from modules.text_extractor import extract_text_from_image, extract_text_from_pdf
+import warnings
+warnings.filterwarnings("ignore")
 
-print("Стартиране на теста...\n")
+from PIL.PdfParser import pdf_repr
 
-# 1. Задаваме пътя до нашите файлове в папката assets
-image_path = "assets/test.jpg"  # Внимавай името да съвпада точно с твоята снимка
-pdf_path = "assets/test.pdf"    # Внимавай името да съвпада точно с твоя PDF
+from modules.text_extractor import extract_text_from_pdf
+from modules.ai_generator import generate_quiz
 
-# 2. Тестваме четенето от снимка
-print("--- РЕЗУЛТАТ ОТ СНИМКАТА ---")
-text_from_image = extract_text_from_image(image_path)
-print(text_from_image)
+print("1. Извличане на текст от PDF...")
+pdf_path = "assets/test.pdf"
+extracted_text = extract_text_from_pdf(pdf_path)
 
-# 3. Тестваме четенето от PDF
-print("\n--- РЕЗУЛТАТ ОТ PDF ---")
-text_from_pdf = extract_text_from_pdf(pdf_path)
-print(text_from_pdf)
+print("2. Текстът е извлечен. Изпращане към AI за генериране на тест...\n")
+
+# Викаме AI функцията и ѝ подаваме прочетения текст
+quiz_json = generate_quiz(extracted_text)
+
+print("--- ГЕНЕРИРАН ТЕСТ ---")
+print(quiz_json)
