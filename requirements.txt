@@ -3,3 +3,4 @@ pypdf
 pytesseract
 pillow
 python-dotenv
+flet
